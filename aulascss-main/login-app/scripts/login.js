@@ -31,15 +31,20 @@ loginForm.addEventListener('submit', function(e) {
     if (window.mockUsers[email] && window.mockUsers[email].password === password) {
         showAlert(`Bem-vindo, ${window.mockUsers[email].name}! 🎉`, 'success');
         
-        // Salva login (simulação)
+        // --- AQUI ESTÁ A MUDANÇA ---
+        // Salvamos sempre para o dashboard.js saber que estamos logados
+        localStorage.setItem('usuarioLogado', email); 
+        
         if (document.getElementById('remember').checked) {
-            localStorage.setItem('loggedUser', email);
+            localStorage.setItem('rememberUser', email);
         }
         
         setTimeout(() => {
-            alert('Redirecionando para dashboard...');
-            // window.location.href = 'dashboard.html';
-        }, 1500);
+            // Removi o alert() comum para ser mais profissional e rápido
+            // Ativei a linha abaixo tirando os "//"
+            window.location.href = 'dashboard.html'; 
+        }, 1000); // 1 segundo de delay para o usuário ler o "Bem-vindo"
+
     } else {
         showAlert('Email ou senha incorretos!');
     }
